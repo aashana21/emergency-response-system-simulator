@@ -1,0 +1,49 @@
+:root{--bg:#0c0c0d;--ink:#ebe5d8;--mut:#8b8b86;--amb:#d9a441;--red:#b5483f;--grn:#8ba888;--line:#2a2a2b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 ui-monospace,Menlo,monospace}
+.grid{position:fixed;inset:-60px;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:60px 60px;opacity:.5;animation:drift 20s linear infinite;z-index:-1}
+@keyframes drift{to{transform:translate(60px,60px)}}
+h1{font:300 clamp(48px,11vw,150px)/.9 Georgia,serif;margin:0;letter-spacing:-.04em}h1 span{display:block;opacity:0;animation:up .9s forwards}h1 span:nth-child(2){animation-delay:.3s;color:var(--amb)}h1 span:nth-child(3){animation-delay:.6s;color:var(--mut)}
+@keyframes up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+.land{min-height:100vh;padding:8vh 6vw;display:flex;flex-direction:column;justify-content:flex-end;gap:24px}
+button,select,input{font:inherit;color:inherit;background:#161617;border:1px solid var(--line);padding:6px 10px}button{cursor:pointer;transition:.2s}button:hover,button:focus-visible{border-color:var(--amb);color:var(--amb);outline:none}
+.cta{align-self:flex-start;padding:14px 28px;border-color:var(--amb);color:var(--amb)}
+nav{display:flex;gap:4px;border-bottom:1px solid var(--line);padding:0 4vw;overflow:auto}nav button{border:0;border-bottom:2px solid transparent;padding:16px}nav .on{border-color:var(--amb);color:var(--amb)}
+main{padding:4vw;display:grid;gap:24px;animation:up .5s}.note{color:var(--mut);font-size:12px}
+table{border-collapse:collapse}td,th{padding:4px 10px;border-bottom:1px solid var(--line);text-align:left}input[type=number]{width:70px}
+.bar{display:flex;height:56px;border:1px solid var(--line)}.seg{height:100%;display:flex;align-items:center;justify-content:center;border-right:1px solid var(--bg);background:#3a3a3b;overflow:hidden;transition:width .35s,background .35s}.seg.f{background:#1b1b1c;color:var(--mut)}.seg.a{background:var(--grn);color:#111}.red{color:var(--red)}.grn{color:var(--grn)}.amb{color:var(--amb)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.log{max-height:180px;overflow:auto;color:var(--mut)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}h1 span{opacity:1}}
+
+/* ===== layout + typography overhaul ===== */
+html,body,#root{width:100%;min-height:100%}body{font-size:17px;font-weight:500;overflow-x:hidden}
+main{width:100%;max-width:none;min-height:calc(100vh - 62px);padding:clamp(16px,2.5vw,40px);align-content:start}
+section{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:24px;width:100%;min-width:0;align-content:start}
+section>*{min-width:0;overflow-x:auto;border:1px solid var(--line);background:#111112;padding:22px;font-size:17px}
+section>*:empty{display:none}
+.wide{grid-column:1/-1}.o1{order:-1}.o2{order:-2}
+section>.bar,section>.gantt{padding:0;overflow:hidden}.bar,.gantt{height:110px}
+.mats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}.mats>table{border:0}
+table{width:100%;font-size:17px}td,th{padding:10px 14px;font-weight:600}th{font-size:15px;font-weight:700;color:var(--amb);text-transform:uppercase;letter-spacing:.06em}
+table caption.note{font:700 22px Georgia,serif;color:var(--ink);text-align:left;padding-bottom:12px;letter-spacing:0}
+td:first-child{font-weight:700}
+nav{padding:0 2.5vw}nav button{font-size:17px;font-weight:700;padding:20px 24px}
+button,select,input{font-size:16px;font-weight:600;padding:10px 18px;min-height:44px}input[type=number]{width:96px;padding:10px 12px}
+button{border-color:#4a4a4b}.cta{font-size:19px;font-weight:700}
+.seg{font-size:17px;font-weight:700}.log{max-height:360px;font-size:16px;line-height:1.8;color:#b9b6ac;font-weight:500}
+.big{font-size:22px;font-weight:600;line-height:1.8}.note{font-size:14px}b{font-weight:700}
+.row{gap:14px}.land p{font-size:18px}
+@media(max-width:700px){section{grid-template-columns:1fr}section>table{display:block;overflow-x:auto}nav button{padding:16px}.bar,.gantt{height:84px}}
+.mats>table{align-self:start;height:auto}
+
+/* Interaction reliability: keep navigation and controls above the decorative grid. */
+.grid{pointer-events:none;z-index:0}
+nav,main,.land{position:relative;z-index:1}
+button:disabled{opacity:.45;cursor:not-allowed;color:var(--mut);border-color:var(--line)}
+button:disabled:hover{color:var(--mut);border-color:var(--line)}
+.bank-actions{align-items:center}
+.request-row label{display:flex;align-items:center;gap:10px}
+@media(max-width:700px){.request-row label{width:100%;justify-content:space-between}.request-row label input{max-width:65%}}
+
+/* Project title on the landing page; absolute positioning keeps the three main keywords unchanged. */
+.land{position:relative}
+.project-title{position:absolute;top:4vh;left:6vw;margin:0;color:var(--ink);font:600 clamp(18px,2.2vw,28px)/1.2 Georgia,serif;letter-spacing:.01em}
